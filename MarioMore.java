@@ -2,7 +2,8 @@ import utilities.*;
 
 import java.util.Scanner;
 
-public class Main {
+
+public class MarioMore {
     public static void main(String args[]) {
         Scanner scan = new Scanner(System.in);
         Clear.clearScreen();
