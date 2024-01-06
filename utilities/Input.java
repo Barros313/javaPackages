@@ -20,4 +20,23 @@ public class Input {
 
         return output;
     }
+
+    public static long getLong(String request, Scanner scanner) {
+        long output = 0l;
+
+        boolean exceptionError = true;
+        do {
+            try {
+                System.out.print(request);
+                exceptionError = false;
+                output = scanner.nextLong();
+            } catch (Exception	exc) {
+                System.out.println("Incompatible input, try again");
+                exceptionError = true;
+                scanner.next();
+            }
+        } while (exceptionError);
+
+        return output;
+    }
 }
