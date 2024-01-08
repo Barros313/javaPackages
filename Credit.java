@@ -11,17 +11,39 @@ public class Credit {
 
         boolean checkCard = cardLength >= 13 && cardLength <= 16;
         boolean checkSum = checkSum(card, cardLength);
-        
-        System.out.println("Card number: " + card);
-        System.out.println("Card Length: " + cardLength);
-        System.out.println("Sum result: " + checkSum);
-        
+
         if (!checkCard || !checkSum) {
             System.out.println("Invalid");
             return;
         } 
 
-        System.out.println("Valid");
+        long firstDigits = (getDigit(card, cardLength - 1) * 10) + getDigit(card, cardLength - 2);
+        
+        boolean mastercardDigits = firstDigits >= 51 && firstDigits <= 55;
+        boolean amexDigits = firstDigits == 34 || firstDigits == 37;
+        boolean visaDigits = firstDigits >= 40 && firstDigits <= 49;
+
+        boolean mastercardLength = cardLength == 16;
+        boolean amexLength = cardLength == 15;
+        boolean visaLength = cardLength == 13 || cardLength == 16;
+
+        // System.out.println("First Digits: " + firstDigits);
+        // System.out.println("Length: " + cardLength);
+        // System.out.println("Check Sum: " + checkSum);
+
+        // System.out.println("amexDigitsCheck: " + amexDigits);
+        // System.out.println("amexLengthCheck: " + amexLength);
+
+        if (mastercardDigits && mastercardLength) {
+            System.out.println("Mastercard");
+        } else if (amexDigits && amexLength) {
+            System.out.println("Amex");
+        } else if (visaDigits && visaLength) {
+            System.out.println("Visa");
+        } else {
+            System.out.println("Invalid");
+            return;
+        }
     }
 
     static boolean checkSum(long input, int inputLength) {
