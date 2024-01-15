@@ -25,7 +25,6 @@ public class Test {
 
         boolean highGrade = index >= 16;
         boolean lowGrade = index < 1;
-        System.out.println("Index: " + index);
 
         if (highGrade) {
             System.out.println("Grade 16+");
@@ -38,17 +37,13 @@ public class Test {
 
     static double averageLetter(char input[], double words) {
         double nonCharacter = 0d;
-        System.out.println("Input Length: " + (input.length));
 
         for (int i = 0; i < input.length; i++) {
             if (!Character.isLetter(input[i])) {
                 nonCharacter++;
             }
         }
-        System.out.println("Non Character: " + nonCharacter);
 
-        System.out.println("Words:" + words);
-        System.out.println("Average letters: " + (input.length - nonCharacter) / (words / 100));
         return (input.length - nonCharacter) / (words / 100);
     }
 
@@ -61,9 +56,6 @@ public class Test {
             }
         }
 
-        System.out.println("Count: " + count);
-
-        System.out.println("Average sentences: " + (count / (words / 100)));
         return count / (words / 100);
     }
 }
