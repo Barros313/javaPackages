@@ -31,7 +31,10 @@ public class Main {
                 MarioMore.marioMore(parameters);
                 break;
             case "Scrabble":
-                Scrabble.scrabble(parameters);;
+                Scrabble.scrabble(parameters);
+                break;
+            case "Readability":
+                Readability.readability(parameters);
                 break;
             default:
                 System.out.println("Class not found.");
