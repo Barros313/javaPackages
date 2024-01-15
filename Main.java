@@ -19,24 +19,23 @@ public class Main {
 
         switch (classname) {
             case "Cash":
-                Cash.cashFunction(args);
+                Cash.cashFunction(parameters);
                 break;
             case "Credit":
-                Credit.credit(args);
+                Credit.credit(parameters);
                 break;
             case "MarioLess":
-                MarioLess.marioLess(args);
+                MarioLess.marioLess(parameters);
                 break;
             case "MarioMore":
-                MarioMore.marioMore(args);
+                MarioMore.marioMore(parameters);
                 break;
             case "Scrabble":
-                Scrabble.scrabble(args);;
+                Scrabble.scrabble(parameters);;
                 break;
             default:
                 System.out.println("Class not found.");
                 return;
         }
-        System.out.println("Finished.");
     }
 }
