@@ -3,59 +3,49 @@ import java.util.Scanner;
 
 public class Test {
     public static void main(String args[]) {
+        int key = 0;
+        boolean validParameter = true;
+        
+        try {
+            key = Integer.parseInt(args[0]);
+        } catch(Exception ex) {
+            validParameter = false;
+        }
+        
+        if (args.length != 1 || !validParameter) {
+            System.out.println("Usage: java Main Caesar [value]");
+            return;
+        } else if (key < 0) {
+            System.out.println("Only compatible with positive integers");
+            return;
+        }
+
         Scanner scan = new Scanner(System.in);
+
         Clear.clearScreen();
 
-        System.out.print("Text: ");
-        String text = scan.nextLine();
+        System.out.print("plaintext: ");
+        String plaintext = scan.nextLine();
         scan.close();
+        
+        char plain[] = new char[plaintext.length()];
+        plain = plaintext.toCharArray();
+        char cipher[] = new char[plaintext.length()];
 
-        char textArray[] = new char[text.length()];
-        textArray = text.toCharArray();
-
-        double numberOfWords = 1d;
-
-        for (int i = 0; i < textArray.length; i++) {
-            if (textArray[i] == ' ') {
-                numberOfWords++;
+        for (int i = 0; i < plain.length; i++) {
+            if (Character.isAlphabetic(plain[i])) {
+                if (Character.isAlphabetic(plain[i] + (key % 26))) {
+                    cipher[i] = (char)((int)(plain[i]) + (key % 26));
+                } else {
+                    cipher[i] = (char)((int)(plain[i]) - (26 - (key % 26)));
+                }
+            } else {
+                cipher[i] = plain[i];
             }
         }
 
-        double index = Math.round(0.0588 * averageLetter(textArray, numberOfWords) - 0.296 * averageSentences(textArray, numberOfWords) - 15.8);
+        String ciphertext = new String(cipher);
 
-        boolean highGrade = index >= 16;
-        boolean lowGrade = index < 1;
-
-        if (highGrade) {
-            System.out.println("Grade 16+");
-        } else if (lowGrade) {
-            System.out.println("Before Grade 1");
-        } else {
-            System.out.printf("Grade %.0f", index);
-        }
-    }
-
-    static double averageLetter(char input[], double words) {
-        double nonCharacter = 0d;
-
-        for (int i = 0; i < input.length; i++) {
-            if (!Character.isLetter(input[i])) {
-                nonCharacter++;
-            }
-        }
-
-        return (input.length - nonCharacter) / (words / 100);
-    }
-
-    static double averageSentences(char input[], double words) {
-        double count = 0d;
-
-        for (int i = 0; i < input.length; i++) {
-            if (input[i] == '.' || input[i] == '!' || input[i] == '?') {
-                count++;
-            }
-        }
-
-        return count / (words / 100);
+        System.out.println("ciphertext: " + ciphertext);
     }
 }
