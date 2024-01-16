@@ -36,6 +36,9 @@ public class Main {
             case "Readability":
                 Readability.readability(parameters);
                 break;
+            case "Caesar":
+                Caesar.caesar(parameters);
+                break;
             default:
                 System.out.println("Class not found.");
                 return;
