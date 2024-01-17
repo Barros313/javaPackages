@@ -2,50 +2,38 @@ import utilities.*;
 import java.util.Scanner;
 
 public class Test {
+    static final int BITS_IN_BYTE = 8;
     public static void main(String args[]) {
-        int key = 0;
-        boolean validParameter = true;
-        
-        try {
-            key = Integer.parseInt(args[0]);
-        } catch(Exception ex) {
-            validParameter = false;
-        }
-        
-        if (args.length != 1 || !validParameter) {
-            System.out.println("Usage: java Main Caesar [value]");
-            return;
-        } else if (key < 0) {
-            System.out.println("Only compatible with positive integers");
-            return;
-        }
-
+        Clear.clearScreen();
         Scanner scan = new Scanner(System.in);
 
-        Clear.clearScreen();
+        System.out.print("Message: ");
+        String input = scan.nextLine();
 
-        System.out.print("plaintext: ");
-        String plaintext = scan.nextLine();
         scan.close();
-        
-        char plain[] = new char[plaintext.length()];
-        plain = plaintext.toCharArray();
-        char cipher[] = new char[plaintext.length()];
 
-        for (int i = 0; i < plain.length; i++) {
-            if (Character.isAlphabetic(plain[i])) {
-                if (Character.isAlphabetic(plain[i] + (key % 26))) {
-                    cipher[i] = (char)((int)(plain[i]) + (key % 26));
-                } else {
-                    cipher[i] = (char)((int)(plain[i]) - (26 - (key % 26)));
+        char message[] = new char[input.length()];
+        message = input.toCharArray();
+
+        int bit[][] = new int[message.length][BITS_IN_BYTE];
+
+        for (int i = 0; i < message.length; i++) {
+            int charValue = (int)(message[i]);
+
+            for (int j = BITS_IN_BYTE - 1; j >= 0; j--) {
+                int sample = (int)(Math.pow(2, j));
+                if (sample <= charValue) {
+                    bit[i][BITS_IN_BYTE - 1 - j] = 1;
+                    charValue -= sample;
                 }
-            } else {
-                cipher[i] = plain[i];
             }
         }
 
-        String ciphertext = new String(cipher);
-
-        System.out.println("ciphertext: " + ciphertext);
+        for (int i = 0; i < message.length; i++) {
+            for (int j = 0; j < BITS_IN_BYTE; j++) {
+                System.out.print(bit[i][j]);
+            }
+            System.out.print("\n");
+        }
     }
 }
