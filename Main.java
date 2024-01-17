@@ -39,6 +39,9 @@ public class Main {
             case "Caesar":
                 Caesar.caesar(parameters);
                 break;
+            case "Bulbs":
+                Bulbs.bulbs(parameters);
+                break;
             default:
                 System.out.println("Class not found.");
                 return;
