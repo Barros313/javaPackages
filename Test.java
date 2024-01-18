@@ -1,39 +1,57 @@
-import utilities.*;
+import utilities.Clear;
+import utilities.constants.Constant;
+
 import java.util.Scanner;
 
 public class Test {
-    static final int BITS_IN_BYTE = 8;
+    static Constant.Length length = new Constant.Length();
+    static final int alphabetLength = length.Alphabet("english");
+    static char alphabet[] = new char[alphabetLength];
+
     public static void main(String args[]) {
+        if (!verifyParameters(args)) {
+            return;
+        }
+
         Clear.clearScreen();
         Scanner scan = new Scanner(System.in);
+    }
 
-        System.out.print("Message: ");
-        String input = scan.nextLine();
+    static boolean verifyParameters(String input[]) {        
+        if (input.length != 1 || !verifyChar(input[0])) {
+            System.out.println("Usage: java Main Substitution [key]");
+            return false;
+        }
 
-        scan.close();
 
-        char message[] = new char[input.length()];
-        message = input.toCharArray();
+        if (input[0].length() != alphabetLength) {
+            System.out.println("Key must contain " + alphabetLength + " characters.");
+            return false;
+        }
 
-        int bit[][] = new int[message.length][BITS_IN_BYTE];
+        for (int i = 0; i < alphabetLength; i++) {
+            alphabet[i] = (char)(65 + i);
+        }
 
-        for (int i = 0; i < message.length; i++) {
-            int charValue = (int)(message[i]);
+        for (char i : alphabet) {
+            System.out.print(i);
+        }
+        System.out.println();
 
-            for (int j = BITS_IN_BYTE - 1; j >= 0; j--) {
-                int sample = (int)(Math.pow(2, j));
-                if (sample <= charValue) {
-                    bit[i][BITS_IN_BYTE - 1 - j] = 1;
-                    charValue -= sample;
-                }
+
+        return true;
+    }
+
+    static boolean verifyChar(String input) {
+        char inputArray[] = new char[input.length()];
+        inputArray = input.toCharArray();
+
+        for (char i : inputArray) {
+            if (!Character.isAlphabetic(i)) {
+                return false;
             }
         }
 
-        for (int i = 0; i < message.length; i++) {
-            for (int j = 0; j < BITS_IN_BYTE; j++) {
-                System.out.print(bit[i][j]);
-            }
-            System.out.print("\n");
-        }
+        return true;
     }
 }
