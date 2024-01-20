@@ -1,7 +1,7 @@
 import utilities.Clear;
 import utilities.constants.Constant;
-
 import java.util.Scanner;
+
 
 public class Test {
     static Constant.Length length = new Constant.Length();
@@ -13,8 +13,47 @@ public class Test {
             return;
         }
 
-        Clear.clearScreen();
         Scanner scan = new Scanner(System.in);
+        Clear.clearScreen();
+
+        System.out.print("plaintext: ");
+        String inputPlaintext = scan.nextLine();
+
+        char plaintext[] = new char[inputPlaintext.length()];
+        plaintext = (inputPlaintext).toCharArray();
+        scan.close();
+
+        char key[] = new char[alphabetLength];
+        key = args[0].toCharArray();
+
+        char ciphertext[] = new char[inputPlaintext.length()];
+        for (int i = 0; i < inputPlaintext.length(); i++) {
+            ciphertext[i] = switchChar(plaintext[i], key);
+        }
+
+        String outputCipherText = ciphertext.toString();
+
+        System.out.println("ciphertext: " + outputCipherText);
+    }
+
+    static char switchChar(char input, char codedAlphabet[]) {
+        if (!Character.isAlphabetic(input)) {
+            return input;
+        }
+
+        char output = input;
+
+        for (int i = 0; i < alphabetLength; i++) {
+            if (Character.toUpperCase(input) == alphabet[i]) {
+                if (Character.isUpperCase(input)) {
+                    output = codedAlphabet[i];
+                } else {
+                    output = Character.toLowerCase(codedAlphabet[i]);
+                }
+            }
+        }
+
+        return output;
     }
 
     static boolean verifyParameters(String input[]) {        
@@ -23,21 +62,35 @@ public class Test {
             return false;
         }
 
-
         if (input[0].length() != alphabetLength) {
             System.out.println("Key must contain " + alphabetLength + " characters.");
             return false;
         }
 
+        char characters[] = new char[input[0].length()];
+        characters = (input[0].toUpperCase()).toCharArray();
+
         for (int i = 0; i < alphabetLength; i++) {
             alphabet[i] = (char)(65 + i);
         }
 
-        for (char i : alphabet) {
-            System.out.print(i);
-        }
-        System.out.println();
+        char verify[] = new char[characters.length];
 
+        for (int i = 0; i < alphabetLength; i++) {
+            for (int j = 0; j <alphabetLength; j++) {
+                if (characters[i] == alphabet[j]) {
+                    verify[j] = 1;
+                    break;
+                }
+            }
+        }
+
+        for (int i = 0; i < alphabetLength; i++) {
+            if (verify[i] != 1) {
+                System.out.println("Invalid alphabet.");
+                return false;
+            }
+        }
 
         return true;
     }
