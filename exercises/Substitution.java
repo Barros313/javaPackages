@@ -1,13 +1,11 @@
 package exercises;
 
 import utilities.Clear;
-import utilities.constants.Constant;
 import java.util.Scanner;
 
 
 public class Substitution {
-    static Constant.Length length = new Constant.Length();
-    static final int alphabetLength = length.Alphabet("english");
+    static final int alphabetLength = 26;
     static char alphabet[] = new char[alphabetLength];
 
     public static void substituion(String args[]) {
