@@ -23,15 +23,21 @@ public class Test {
         plaintext = (inputPlaintext).toCharArray();
         scan.close();
 
-        char key[] = new char[alphabetLength];
-        key = args[0].toCharArray();
+        char defaultKey[] = new char[alphabetLength];
+        defaultKey = args[0].toCharArray();
+
+        char key[] = new char[defaultKey.length];
+
+        for (int i = 0; i < defaultKey.length; i++) {
+            key[i] = Character.toUpperCase(defaultKey[i]);
+        }
 
         char ciphertext[] = new char[inputPlaintext.length()];
         for (int i = 0; i < inputPlaintext.length(); i++) {
             ciphertext[i] = switchChar(plaintext[i], key);
         }
 
-        String outputCipherText = ciphertext.toString();
+        String outputCipherText = new String(ciphertext);
 
         System.out.println("ciphertext: " + outputCipherText);
     }
