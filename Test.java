@@ -33,7 +33,11 @@ public class Test {
 
         String outputCipherText = ciphertext.toString();
 
-        System.out.println("ciphertext: " + outputCipherText);
+        System.out.print("ciphertext: ");
+        for (char i : ciphertext) {
+            System.out.print(i);
+        }
+        System.out.println();
     }
 
     static char switchChar(char input, char codedAlphabet[]) {
