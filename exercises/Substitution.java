@@ -1,9 +1,20 @@
-import utilities.Clear;
+package exercises;
 
-public class Test {
-    public static void main(String args[]) {
+import utilities.Clear;
+import java.util.Scanner;
+
+
+public class Substitution {
+    static final int alphabetLength = 26;
+    static char alphabet[] = new char[alphabetLength];
+
+    public static void substituion(String args[]) {
+        if (!verifyParameters(args)) {
+            return;
+        }
+
+        Scanner scan = new Scanner(System.in);
         Clear.clearScreen();
-<<<<<<< HEAD
 
         System.out.print("plaintext: ");
         String inputPlaintext = scan.nextLine();
@@ -12,21 +23,23 @@ public class Test {
         plaintext = (inputPlaintext).toCharArray();
         scan.close();
 
-        char key[] = new char[alphabetLength];
-        key = args[0].toCharArray();
+        char defaultKey[] = new char[alphabetLength];
+        defaultKey = args[0].toCharArray();
+
+        char key[] = new char[defaultKey.length];
+
+        for (int i = 0; i < defaultKey.length; i++) {
+            key[i] = Character.toUpperCase(defaultKey[i]);
+        }
 
         char ciphertext[] = new char[inputPlaintext.length()];
         for (int i = 0; i < inputPlaintext.length(); i++) {
             ciphertext[i] = switchChar(plaintext[i], key);
         }
 
-        String outputCipherText = ciphertext.toString();
+        String outputCipherText = new String(ciphertext);
 
-        System.out.print("ciphertext: ");
-        for (char i : ciphertext) {
-            System.out.print(i);
-        }
-        System.out.println();
+        System.out.println("ciphertext: " + outputCipherText);
     }
 
     static char switchChar(char input, char codedAlphabet[]) {
@@ -99,8 +112,5 @@ public class Test {
         }
 
         return true;
-=======
-        System.out.println("Test");
->>>>>>> c45b030da0fb2ad419dd4d4488b29693b8475dc6
     }
 }
